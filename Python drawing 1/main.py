@@ -1,6 +1,6 @@
-# DRAWING PROGRAM BY TIM
+# PYTHON DRAWING PROGRAM 
 # main.py file (RUN THIS)
-# Description: This program draws a grid of 600, 600 with a given
+# Description: This program draws a grid of 700, 500 with a given
 # pixel size/rows and cols. The user can then interact with the grid
 # using a variety of tools from the menu bar on the bottom. They can draw
 # by selecting a color from the pallet and clicking the "D" button. This program
@@ -35,8 +35,8 @@ currentVersion = 1.1
 #Set defaults for our screen size and rows and columns
 rows = 50
 cols = 50
-wid = 600
-heigh = 600
+wid = 700
+heigh = 500
 
 checked = []
 def fill(spot, grid, color, c):
@@ -114,8 +114,9 @@ def openFile(path):
              
              grid.getGrid()[i][j].show(win, tuple(nColor), 0) #Show the color on the grid
     else:
-      window = Tk()
-      window.withdraw()
+      painter = Tk()
+      painter.title("Python Drawing Program")
+      painter.withdraw()
       messagebox.showerror("Unsupported Version", "The file you have opened is created using a previous version of this program. Please open it in that version.")
 
 
@@ -127,10 +128,11 @@ def changeCaption(txt):
 # This shows the file navigator for opening and saving files
 def showFileNav(op=False):
    #Op is short form for open as open is a key word
-    window = Tk()
-    window.attributes("-topmost", True)
-    window.withdraw()
-    myFormats = [('Windows Text File','*.txt')]
+    painter = Tk()
+    painter.title("Python Drawing Program")
+    painter.attributes("-topmost", True)
+    painter.withdraw()
+    myFormats = [('painters Text File','*.txt')]
     if op:
        filename = askopenfilename(title="Open File",filetypes=myFormats) # Ask the user which file they want to open
     else:
@@ -145,8 +147,8 @@ def onsubmit(x=0):
     global cols, rows, wid, heigh
     
     st = rowsCols.get().split(',') # Get the input from the text box
-    window.quit()
-    window.destroy()
+    painter.quit()
+    painter.destroy()
     try: # Make sure both cols and rows are integers
         if st[0].isdigit(): 
             cols = int(st[0])
@@ -240,20 +242,20 @@ def initalize(cols, rows, showGrid=False):
 
 #-----------------------------------------------------------------------#
     #TKINTER FORM FOR GETTING INPUT#
-window = Tk()
-window.title('Paint Program')
+painter = Tk()
+painter.title('Python Paint App')
 
 t_var = StringVar()
 t_var.trace('w', updateLabel)
 
-label = Label(window, text='# Of Rows and Columns (25,50): ')
-rowsCols = Entry(window, textvariable=t_var)
+label = Label(painter, text='# Of Rows and Columns (25,50): ')
+rowsCols = Entry(painter, textvariable=t_var)
 
-label1 = Label(window, text="Pixel Size: 12.0, 12.0")
+label1 = Label(painter, text="Pixel Size: 12.0, 12.0")
 var = IntVar()
-c = Checkbutton(window, text="View Grid", variable=var)
-submit = Button(window, text='Submit', command=onsubmit)
-window.bind('<Return>', onsubmit)
+c = Checkbutton(painter, text="View Grid", variable=var)
+submit = Button(painter, text='Submit', command=onsubmit)
+painter.bind('<Return>', onsubmit)
 
 submit.grid(columnspan=1, row=3, column=1,pady=2)
 c.grid(column=0, row=3)
@@ -261,7 +263,7 @@ label1.grid(row=2)
 rowsCols.grid(row=0, column=1, pady=3, padx=8)
 label.grid(row=0, pady=3)
 
-window.update()
+painter.update()
 mainloop()
 
 #------------------------------------------------------------------------#
@@ -283,8 +285,8 @@ while run:
 
     for event in ev:
         if event.type == pygame.QUIT:
-            window = Tk()
-            window.withdraw()
+            painter = Tk()
+            painter.withdraw()
             #Ask the user if they want to save before closing
             if pygame.display.get_caption()[0].count('*') > 0: 
                if messagebox.askyesno("Save Work?", "Would you like to save before closing?"):
